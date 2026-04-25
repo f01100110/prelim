@@ -1,39 +1,35 @@
-def letter_grade(grade):
-    if grade >= 90:
-        return 'A'
-    elif grade >= 80:
-        return 'B'
-    elif grade >= 75:
-        return 'C'
-    elif grade >= 60:
-        return 'D'
+def get_price_category(price):
+    if price < 50:
+        return 'Budget'
+    elif 50 <= price < 199:
+        return 'Mid-range'
     else:
-        return 'F'
+        return 'Premium'
     
-def pass_or_fail(grade):
-    if grade >= 75:
-        return 'Passed'
+def stock_level(stock):
+    if stock < 10:
+        return 'Low Stock'
     else:
-        return 'Failed'
+        return 'Stock OK'
 
-def save_student_record(first_name, last_name, grade , letter_grade, pass_or_fail):
-    with open('D:\\edp_f01100110\\grades.txt', 'a') as file:
-        file.write(f"First Name: {first_name} | Last Name: {last_name} | Grade: {grade} | Letter Grade: {letter_grade} | Result: {pass_or_fail}\n")
+def save_product_record(product_name, price, stock, price_category, stock_status):
+    with open('D:\\edp_f01100110\\inventory.txt', 'a') as file:
+        file.write(f"Product: {product_name} | Price: p {price:.2F} | Stock: {stock} | Price Category: {price_category} | Stock Status: {stock_status}\n")
 
 while True:
-    first_name = input("Enter your first name: ")
-    last_name = input("Enter your last name: ")
-    grade = int(input("Enter your grade: "))
-    letter_grade = letter_grade(grade)
-    pass_or_fail = pass_or_fail(grade)
+    product_name = input("Enter the product name: ")
+    price = float(input("Enter the product price: "))
+    stock = int(input("Enter the stock quantity: "))
     
-    print(f"Your letter grade is: {letter_grade}")
-    print(f"You have {pass_or_fail}.")
+    price_category = get_price_category(price)
+    stock_status = stock_level(stock)
+    print(f"Price Category: {price_category}")
+    print(f"Stock Status: {stock_status}")
+    print("Product saved successfully!") 
 
-    save_student_record(first_name, last_name, grade, letter_grade, pass_or_fail)
-    print("Record saved successfully!\n")
+    save_product_record(product_name, price, stock, price_category, stock_status)
 
-    choice = input("Do you want to add another student? (yes/no): ").lower()
+    choice = input("Do you want to add another product? (yes/no): ").lower()
     if choice != "yes":
-        print("All students have been added. Exiting the program.")
+        print("Product records saved. Exiting the program.")
         break
